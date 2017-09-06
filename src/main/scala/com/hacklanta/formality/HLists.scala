@@ -13,13 +13,19 @@ object HListies {
   sealed trait HList
 
   implicit final class HListMethods[ListSoFar <: HList](hlist: ListSoFar) extends AnyRef {
+    // HNil here refers to our type alias below, even in the pattern match, so
+    // we declare a local version of the singleton to properly do pattern
+    // matching. Some bizarre Scala compiler thing, but it works and it's very
+    // localized, so I'm down.
+    private[this] val LocalHnil = HNil
+
     def :+:[T](v: T): :+:[T, ListSoFar] = {
       HListies.:+:(v, hlist)
     }
 
     def length: Int = {
       hlist match {
-        case HNil =>
+        case LocalHnil =>
           0
         case head :+: rest =>
           1 + rest.length
@@ -30,14 +36,11 @@ object HListies {
   /**
    * The last element of an HList
    */
-  final class HNil extends HList {
+  case object HNil extends HList {
     override def toString = "HNil"
   }
 
-  /**
-   * The HNil singleton
-   */
-  val HNil = new HNil()
+  type HNil = HNil.type
 
   /**
    * The HList cons cell
