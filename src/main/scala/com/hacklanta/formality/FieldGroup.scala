@@ -24,12 +24,12 @@ object FieldGroup {
           (
             tq"$boxedValueTypes",
             FormalityFormHelper.unwindHlistTypes(c)(boxedValueTypes),
-            tq"net.liftweb.common.HLists.HCons[$headValueType, $restValueTypes]",
+            tq"net.liftweb.common.HListiess.HCons[$headValueType, $restValueTypes]",
             headValueType :: FormalityFormHelper.unwindHlistTypes(c)(restValueTypes)
           )
 
         case TypeRef(_, thing, other) =>
-          (tq"net.liftweb.common.HLists.HNil", Nil, tq"net.liftweb.common.HLists.HNil", Nil)
+          (tq"net.liftweb.common.HListies.HNil", Nil, tq"net.liftweb.common.HListies.HNil", Nil)
 
         case other =>
           c.abort(
@@ -53,7 +53,7 @@ object FieldGroup {
       val (matcher, parameterList) =
         (0 until hlistTypes.length)
           .reverse
-          .foldLeft((q"HNil": c.Tree, List[Ident]())) {
+          .foldLeft((q"net.liftweb.common.HListies.HNil": c.Tree, List[Ident]())) {
             case ((typeMatch, parameters), _) =>
               val name = TermName(c.freshName("boxedFieldValue$"))
 

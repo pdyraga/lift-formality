@@ -313,7 +313,7 @@ object FormalityFormHelper {
       val (matcher, parameterList) =
         (0 until hlistTypes.length)
           .reverse
-          .foldLeft((q"HNil": c.Tree, List[Ident]())) {
+          .foldLeft((q"net.liftweb.common.HListies.HNil": c.Tree, List[Ident]())) {
             case ((typeMatch, parameters), _) =>
               val name = TermName(c.freshName("fieldValue$"))
 

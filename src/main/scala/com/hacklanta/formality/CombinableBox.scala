@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.liftweb 
+package net.liftweb
 package common
 
 import scala.language.implicitConversions
@@ -61,7 +61,7 @@ object CombinableBoxie {
                                      FailureList(f))
     case Right(x) => Full(x)
   }
- 
+
   /**
    * If the Failure is going to be condensed, generate a FailureList
    */
@@ -80,5 +80,5 @@ object CombinableBoxie {
         case (Full(success),     Right(successes)) => Right(success :+: successes)
       }
   }
-  
+
 }
